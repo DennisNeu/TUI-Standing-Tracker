@@ -20,9 +20,9 @@ class TrackerApp(App):
 
     def compose(self) -> ComposeResult:
         """Generate layout for the app."""
-        yield Header(show_clock=True, icon="🕒")
+        yield Header(show_clock=True, icon="")
         yield Static("Time Tracker", id="title")
-        self.status_display = Static(f"I display the status {self.is_running}", id="status")
+        self.status_display = Static(f"Timer is paused ⏸️", id="status")
         yield self.status_display
         yield Footer()
 
@@ -49,9 +49,9 @@ class TrackerApp(App):
     def watch_is_running(self, status: bool) -> None:
         """Update the status display when the timer state changes."""
         if status:
-            self.status_display.update("Timer is running")
+            self.status_display.update("Timer is running 🕒")
         else:
-            self.status_display.update("Timer is paused")
+            self.status_display.update("Timer is paused ⏸️")
 
 if __name__ == "__main__":
     app = TrackerApp()
