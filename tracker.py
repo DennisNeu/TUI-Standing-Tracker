@@ -18,6 +18,9 @@ class TrackerApp(App):
         ("t", "toggle_dark", "Toggle Dark Mode")
     ]
 
+    def on_mount(self) -> None:
+        self.title = ""
+
     def compose(self) -> ComposeResult:
         """Generate layout for the app."""
         yield Header(show_clock=True, icon="")
