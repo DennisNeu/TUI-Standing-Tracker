@@ -1,9 +1,18 @@
-#title {
-    content-align: center middle;
-    text-align: center;
-    padding: 1;
-    text-style: bold;
-    border: inner black;
-    width: auto;
+Screen {
+    align: center middle;
 }
 
+#title {
+    content-align: center top;
+    padding: 1;
+    text-style: bold;
+    border: heavy $primary;
+    height: auto;
+    background: $panel-darken-1;
+}
+
+#app-wrapper {
+    width: 80;
+    border: ascii $primary;
+    margin: 0 10;
+}

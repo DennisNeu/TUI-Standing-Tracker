@@ -1,6 +1,7 @@
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Static
 from textual.reactive import Reactive
+from textual.containers import Vertical
 import pyfiglet
 
 
@@ -13,23 +14,26 @@ class TrackerApp(App):
 
     BINDINGS = [
         ("q", "quit", "Quit"),
-        ("s", "start_timer", "Start Timer"),
-        ("p", "pause_timer", "Pause Timer"),
+        ("t", "toggle_timer", "Toggle Timer"),
         ("r", "reset_timer", "Reset Timer"),
-        ("t", "toggle_dark", "Toggle Dark Mode")
     ]
 
     def on_mount(self) -> None:
         self.title = ""
+        self.theme = "tokyo-night"
 
     def compose(self) -> ComposeResult:
         """Generate layout for the app."""
-        yield Header(show_clock=True, icon="")
         ascii_title = pyfiglet.figlet_format("Time Tracker", font="slant")
-        yield Static(ascii_title, id="title")
         self.status_display = Static("Timer is paused ⏸️", id="status")
-        yield self.status_display
-        yield Footer()
+
+        yield Vertical(
+            Header(show_clock=True, icon=""),
+            Static(ascii_title, id="title"),
+            self.status_display,
+            Footer(),
+            id="app-wrapper"
+        )
 
     def action_toggle_dark(self) -> None:
         """Toggle dark mode."""
@@ -37,15 +41,12 @@ class TrackerApp(App):
             "tokyo-night" if self.theme == "textual-light" else "textual-light"
         )
 
-    def action_start_timer(self) -> None:
-        """Start the timer."""
-        self.is_running = True
-        # self.query_one("#status").update("Timer is running")
-
-    def action_pause_timer(self) -> None:
-        """Pause the timer."""
-        self.is_running = False
-        pass
+    def action_toggle_timer(self) -> None:
+        """Toggle the timer."""
+        if self.is_running:
+            self.is_running = False
+        else:
+            self.is_running = True
 
     def action_reset_timer(self) -> None:
         """Reset the timer."""
