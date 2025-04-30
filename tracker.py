@@ -1,5 +1,5 @@
 from textual.app import App, ComposeResult
-from textual.widgets import Header, Footer, Static
+from textual.widgets import Header, Footer, Static, Digits
 from textual.reactive import Reactive
 from textual.containers import Vertical
 import pyfiglet
@@ -30,6 +30,7 @@ class TrackerApp(App):
         yield Vertical(
             Header(show_clock=True, icon=""),
             Static(ascii_title, id="title"),
+            Digits("00:00:00", id="timer"),
             self.status_display,
             Footer(),
             id="app-wrapper"
