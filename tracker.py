@@ -1,6 +1,7 @@
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Static
 from textual.reactive import Reactive
+import pyfiglet
 
 
 class TrackerApp(App):
@@ -24,15 +25,16 @@ class TrackerApp(App):
     def compose(self) -> ComposeResult:
         """Generate layout for the app."""
         yield Header(show_clock=True, icon="")
-        yield Static("Time Tracker", id="title")
-        self.status_display = Static(f"Timer is paused ⏸️", id="status")
+        ascii_title = pyfiglet.figlet_format("Time Tracker", font="slant")
+        yield Static(ascii_title, id="title")
+        self.status_display = Static("Timer is paused ⏸️", id="status")
         yield self.status_display
         yield Footer()
 
     def action_toggle_dark(self) -> None:
         """Toggle dark mode."""
         self.theme = (
-            "textual-dark" if self.theme == "textual-light" else "textual-light"
+            "tokyo-night" if self.theme == "textual-light" else "textual-light"
         )
 
     def action_start_timer(self) -> None:
@@ -55,6 +57,7 @@ class TrackerApp(App):
             self.status_display.update("Timer is running 🕒")
         else:
             self.status_display.update("Timer is paused ⏸️")
+
 
 if __name__ == "__main__":
     app = TrackerApp()

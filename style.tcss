@@ -1,4 +1,9 @@
 #title {
+    content-align: center middle;
     text-align: center;
     padding: 1;
+    text-style: bold;
+    border: inner black;
+    width: auto;
 }
+
