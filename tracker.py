@@ -86,6 +86,7 @@ class TrackerApp(App):
     def action_toggle_timer(self) -> None:
         """Toggle the timer."""
         if self.is_running:
+            self.timer.stop()
             self.is_running = False
         else:
             self.timer.start()
@@ -102,7 +103,7 @@ class TrackerApp(App):
 
     def action_reset_timer(self) -> None:
         """Reset the timer."""
-        pass
+        self.timer.reset()
 
     def watch_is_running(self, status: bool) -> None:
         """Update the status display when the timer state changes."""
