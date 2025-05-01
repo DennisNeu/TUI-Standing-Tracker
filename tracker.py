@@ -29,7 +29,7 @@ class TrackerApp(App):
         """Generate layout for the app."""
         ascii_title = pyfiglet.figlet_format("Time Tracker", font="slant")
         self.status_display = Static("Timer is paused ⏸️", id="status")
-        self.timer = Timer(id="timer")
+        self.timer = Timer("00:00:00.00", id="timer")
 
         yield Vertical(
             Header(show_clock=True, icon=""),

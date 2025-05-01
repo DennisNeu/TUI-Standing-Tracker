@@ -1,5 +1,4 @@
 TO-DO:
 * timer not appearing until after t is pressed
-* reset is buggy
 * save last session amount
 * add a button to toggle
