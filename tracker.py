@@ -28,14 +28,12 @@ class TrackerApp(App):
     def compose(self) -> ComposeResult:
         """Generate layout for the app."""
         ascii_title = pyfiglet.figlet_format("Time Tracker", font="slant")
-        self.status_display = Static("Timer is paused ⏸️", id="status")
         self.timer = Timer("00:00:00.00", id="timer")
 
         yield Vertical(
             Header(show_clock=True, icon=""),
             Static(ascii_title, id="title"),
             self.timer,
-            self.status_display,
             Footer(),
             id="app-wrapper"
         )
@@ -64,10 +62,7 @@ class TrackerApp(App):
 
     def watch_is_running(self, status: bool) -> None:
         """Update the status display when the timer state changes."""
-        if status:
-            self.status_display.update("Timer is running 🕒")
-        else:
-            self.status_display.update("Timer is paused ⏸️")
+        pass
 
     def watch_time(self, time: float) -> None:
         """Called when the time attribute changes."""
