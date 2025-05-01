@@ -57,6 +57,9 @@ class TrackerApp(App):
 
     def action_reset_timer(self) -> None:
         """Reset the timer."""
+        if self.is_running:
+            self.timer.stop()
+            self.is_running = False
         self.timer.reset()
 
     def watch_is_running(self, status: bool) -> None:
