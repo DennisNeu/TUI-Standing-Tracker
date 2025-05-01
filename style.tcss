@@ -16,3 +16,13 @@ Screen {
     border: ascii $primary;
     margin: 0 10;
 }
+
+#timer {
+    text-align: center;
+    padding: 1;
+    margin: 1 0;
+    text-style: bold;
+    border: round $primary;
+    height: auto;
+    background: $panel-darken-1;
+}
