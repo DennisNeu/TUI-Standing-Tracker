@@ -2,7 +2,7 @@ from timer import Timer
 from data_manager import DataManager
 
 from textual.app import App, ComposeResult
-from textual.widgets import Header, Footer, Static, Label
+from textual.widgets import Header, Footer, Static, Label, Button
 from textual.reactive import Reactive
 from textual.containers import Vertical
 
@@ -48,6 +48,7 @@ class TrackerApp(App):
             Static(ascii_title, id="title"),
             self.timer,
             self.score_display,
+            Button("start", id="button-toggle"),
             Footer(),
             id="app-wrapper"
         )
