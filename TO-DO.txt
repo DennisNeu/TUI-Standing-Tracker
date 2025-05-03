@@ -1,3 +1,4 @@
 TO-DO:
-* save last session amount
-* add a button to toggle
+* Add a button to toggle
+* Fix long f-string
+* Show history of scores
