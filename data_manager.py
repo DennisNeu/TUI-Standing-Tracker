@@ -1,6 +1,6 @@
 import os
 import json
-from datetime import datetime
+from datetime import date
 
 
 class DataManager:
@@ -19,7 +19,7 @@ class DataManager:
                 self.highscores = json.load(file)
         else:
             self.highscores = []
-            self.highscores.append({"date": str(datetime.now()), "score": 0.0})
+            self.highscores.append({"date": str(date.today()), "score": 0.0})
             self.save_data()
 
     def save_data(self):
@@ -28,8 +28,9 @@ class DataManager:
             json.dump(self.highscores, file, indent=4)
 
     def add_score(self, score: float):
-        """Add a score to the list and save it."""
-        self.highscores.append(score)  # Append adds to end of list
+        """Add a score to the list and save it. Since append adds to the end
+           of the list, the last score is the highest"""
+        self.highscores.append({"date": str(date.today()), "score": score})
         self.save_data()
 
     def get_last_score(self) -> dict:

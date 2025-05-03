@@ -1,11 +1,11 @@
 from timer import Timer
-from datetime import date
 from data_manager import DataManager
 
 from textual.app import App, ComposeResult
-from textual.widgets import Header, Footer, Static
+from textual.widgets import Header, Footer, Static, Label
 from textual.reactive import Reactive
 from textual.containers import Vertical
+
 import pyfiglet
 
 
@@ -15,7 +15,9 @@ class TrackerApp(App):
     def __init__(self) -> None:
         super().__init__()
         self.data_manager = DataManager("data.json")
-        self.highscore = self.data_manager.get_last_score()
+        score_data = self.data_manager.get_last_score()
+        self.highscore = score_data["score"]
+        self.highscore_date = score_data["date"]
 
     is_running = Reactive(False)
 
@@ -35,24 +37,24 @@ class TrackerApp(App):
         """Generate layout for the app."""
         ascii_title = pyfiglet.figlet_format("Time Tracker", font="slant")
         self.timer = Timer("00:00:00.00", id="timer")
-        self.time = self.timer.time
+        # TODO: fix f-string formatting
+        self.score_display = Label(
+                f"Highscore: {int(self.highscore) // 3600:02}:{(int(self.highscore) % 3600) // 60:02}:{int(self.highscore) % 60:02}",
+                id="highscore",
+            )
 
         yield Vertical(
             Header(show_clock=True, icon=""),
             Static(ascii_title, id="title"),
             self.timer,
-            Static(
-                f"Highscore: {self.highscore['score']} seconds",
-                id="highscore",
-            ),
-            Static(str(self.time)),
+            self.score_display,
             Footer(),
             id="app-wrapper"
         )
 
     def action_quit(self) -> None:
         """Quit the app."""
-        
+
         self.data_manager.save_data()
         self.exit()
 
@@ -61,6 +63,7 @@ class TrackerApp(App):
         if self.is_running:
             self.timer.stop()
             self.is_running = False
+            self.compare_time()
         else:
             self.timer.start()
             self.is_running = True
@@ -81,6 +84,21 @@ class TrackerApp(App):
         minutes, seconds = divmod(time, 60)
         hours, minutes = divmod(minutes, 60)
         self.update(f"{hours:02,.0f}:{minutes:02.0f}:{seconds:05.2f}")
+
+    def watch_highscore(self, highscore: float) -> None:
+        """Called when the highscore attribute changes."""
+        self.score_display.update(f"Highscore: {int(self.highscore) // 3600:02}:{(int(self.highscore) % 3600) // 60:02}:{int(self.highscore) % 60:02}")
+
+    def compare_time(self) -> None:
+        """Compare the current time with the highscore."""
+        score = self.highscore
+
+        if self.timer.time > score:
+            self.highscore = self.timer.time
+            self.data_manager.add_score(self.highscore)
+            self.watch_highscore(self.highscore)
+        else:
+            return
 
 
 if __name__ == "__main__":

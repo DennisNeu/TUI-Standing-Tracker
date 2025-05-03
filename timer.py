@@ -12,7 +12,9 @@ class Timer(Digits):
 
     def on_mount(self) -> None:
         """Event handler called when widget is added to the app."""
-        self.update_timer = self.set_interval(1 / 60, self.update_time, pause=True)
+        self.update_timer = self.set_interval(1 / 60,
+                                              self.update_time,
+                                              pause=True)
 
     def update_time(self) -> None:
         """Method to update time to current."""
