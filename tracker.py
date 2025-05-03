@@ -35,7 +35,7 @@ class TrackerApp(App):
 
     def compose(self) -> ComposeResult:
         """Generate layout for the app."""
-        ascii_title = pyfiglet.figlet_format("Time Tracker", font="slant")
+        ascii_title = pyfiglet.figlet_format("Stand Up!", font="slant")
         self.timer = Timer("00:00:00.00", id="timer")
         # TODO: fix f-string formatting
         self.score_display = Label(
