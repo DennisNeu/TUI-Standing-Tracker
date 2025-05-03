@@ -3,6 +3,7 @@ from time import monotonic
 from textual.widgets import Digits
 from textual.reactive import Reactive
 
+
 class Timer(Digits):
     """A custom timer widget"""
     time = Reactive(0.0)

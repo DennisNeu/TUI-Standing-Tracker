@@ -1,4 +1,6 @@
 from timer import Timer
+from datetime import date
+from data_manager import DataManager
 
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Static
@@ -7,9 +9,13 @@ from textual.containers import Vertical
 import pyfiglet
 
 
-
 class TrackerApp(App):
     """A simple app to track time spent standing on a sit-stand desk."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.data_manager = DataManager("data.json")
+        self.highscore = self.data_manager.get_last_score()
 
     is_running = Reactive(False)
 
@@ -29,20 +35,26 @@ class TrackerApp(App):
         """Generate layout for the app."""
         ascii_title = pyfiglet.figlet_format("Time Tracker", font="slant")
         self.timer = Timer("00:00:00.00", id="timer")
+        self.time = self.timer.time
 
         yield Vertical(
             Header(show_clock=True, icon=""),
             Static(ascii_title, id="title"),
             self.timer,
+            Static(
+                f"Highscore: {self.highscore['score']} seconds",
+                id="highscore",
+            ),
+            Static(str(self.time)),
             Footer(),
             id="app-wrapper"
         )
 
-    def action_toggle_dark(self) -> None:
-        """Toggle dark mode."""
-        self.theme = (
-            "tokyo-night" if self.theme == "textual-light" else "textual-light"
-        )
+    def action_quit(self) -> None:
+        """Quit the app."""
+        
+        self.data_manager.save_data()
+        self.exit()
 
     def action_toggle_timer(self) -> None:
         """Toggle the timer."""
