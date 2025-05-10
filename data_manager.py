@@ -10,6 +10,7 @@ class DataManager:
         """Initialize the DataManager with a filename."""
         self.filename = filename
         self.highscores = []
+        self.total_time = 0.0
         self.load_data()
 
     def load_data(self):
