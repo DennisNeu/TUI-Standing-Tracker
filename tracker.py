@@ -18,7 +18,7 @@ class TrackerApp(App):
         score_data = self.data_manager.get_last_score()
         self.highscore = score_data["score"]
         self.highscore_date = score_data["date"]
-        self.total = 0.0
+        self.total = self.data_manager.total_time
 
     is_running = Reactive(False)
 
@@ -60,7 +60,7 @@ class TrackerApp(App):
 
     def action_quit(self) -> None:
         """Quit the app."""
-
+        self.data_manager.add_total_time(self.timer.time)
         self.data_manager.save_data()
         self.exit()
 
