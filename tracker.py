@@ -18,6 +18,7 @@ class TrackerApp(App):
         score_data = self.data_manager.get_last_score()
         self.highscore = score_data["score"]
         self.highscore_date = score_data["date"]
+        self.total = 0.0
 
     is_running = Reactive(False)
 
@@ -42,12 +43,17 @@ class TrackerApp(App):
                 f"Highscore: {int(self.highscore) // 3600:02}:{(int(self.highscore) % 3600) // 60:02}:{int(self.highscore) % 60:02}",
                 id="highscore",
             )
+        self.total_display = Static(
+                f"Total Time: {int(self.total) // 3600:02}:{(int(self.data_manager.total_time) % 3600) // 60:02}:{int(self.data_manager.total_time) % 60:02}",
+                id="total",
+            )
 
         yield Container(
             Header(show_clock=True, icon=""),
             Static(ascii_title, id="title"),
             self.timer,
             self.score_display,
+            self.total_display,
             Footer(),
             id="app-wrapper"
         )
