@@ -1,12 +1,13 @@
-from timer import Timer
-from data_manager import DataManager
-
+"""A simple app to track time spent standing on a sit-stand desk."""
 from textual.app import App, ComposeResult
-from textual.widgets import Header, Footer, Static, Label, Button
+from textual.widgets import Header, Footer, Static
 from textual.reactive import Reactive
-from textual.containers import Vertical, Container
+from textual.containers import Container
 
 import pyfiglet
+
+from timer import Timer
+from data_manager import DataManager
 
 
 class TrackerApp(App):
@@ -31,6 +32,7 @@ class TrackerApp(App):
     ]
 
     def on_mount(self) -> None:
+        """Event handler called when the app is mounted."""
         self.title = ""
         self.theme = "tokyo-night"
 
@@ -38,7 +40,7 @@ class TrackerApp(App):
         """Generate layout for the app."""
         ascii_title = pyfiglet.figlet_format("Stand Up!", font="slant")
         self.timer = Timer("00:00:00.00", id="timer")
-        # TODO: fix f-string formatting
+        #  TODO: fix f-string formatting
         self.score_display = Static(
                 f"Highscore: {int(self.highscore) // 3600:02}:{(int(self.highscore) % 3600) // 60:02}:{int(self.highscore) % 60:02}",
                 id="highscore",
