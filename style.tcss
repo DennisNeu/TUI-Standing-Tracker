@@ -26,3 +26,15 @@ Screen {
     height: auto;
     background: $panel-darken-1;
 }
+
+#highscore {
+    dock: bottom;
+    content-align: center middle;
+    text-align: center;
+    padding: 1;
+    margin: 2 2;
+    text-style: bold;
+    border: round $primary;
+    height: auto;
+    background: $panel-darken-1;
+}

@@ -4,7 +4,7 @@ from data_manager import DataManager
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Static, Label, Button
 from textual.reactive import Reactive
-from textual.containers import Vertical
+from textual.containers import Vertical, Container
 
 import pyfiglet
 
@@ -38,17 +38,16 @@ class TrackerApp(App):
         ascii_title = pyfiglet.figlet_format("Stand Up!", font="slant")
         self.timer = Timer("00:00:00.00", id="timer")
         # TODO: fix f-string formatting
-        self.score_display = Label(
+        self.score_display = Static(
                 f"Highscore: {int(self.highscore) // 3600:02}:{(int(self.highscore) % 3600) // 60:02}:{int(self.highscore) % 60:02}",
                 id="highscore",
             )
 
-        yield Vertical(
+        yield Container(
             Header(show_clock=True, icon=""),
             Static(ascii_title, id="title"),
             self.timer,
             self.score_display,
-            Button("start", id="button-toggle"),
             Footer(),
             id="app-wrapper"
         )
