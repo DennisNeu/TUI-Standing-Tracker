@@ -35,13 +35,11 @@ class DataManager:
         with open(self.filename, 'w') as file:
             json.dump(data, file, indent=4)
 
-
     def add_score(self, score: float):
         """Add a score to the list and save it. Since append adds to the end
            of the list, the last score is the highest"""
         self.highscores.append({"date": str(date.today()), "score": score})
         self.save_data()
-
 
     def get_last_score(self) -> dict:
         """Get the last score from the list."""

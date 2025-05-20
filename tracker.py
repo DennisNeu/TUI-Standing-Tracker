@@ -20,6 +20,7 @@ class TrackerApp(App):
         self.highscore = score_data["score"]
         self.highscore_date = score_data["date"]
         self.total = self.data_manager.total_time
+        self.time_when_last_total = 0.0
 
     is_running = Reactive(False)
 
@@ -72,6 +73,7 @@ class TrackerApp(App):
             self.timer.stop()
             self.is_running = False
             self.compare_time()
+            self.calculate_total_time()
         else:
             self.timer.start()
             self.is_running = True
@@ -82,6 +84,7 @@ class TrackerApp(App):
             self.timer.stop()
             self.is_running = False
         self.timer.reset()
+        self.time_when_last_total = 0.0
 
     def watch_is_running(self, status: bool) -> None:
         """Update the status display when the timer state changes."""
@@ -108,6 +111,14 @@ class TrackerApp(App):
         else:
             return
 
+    def calculate_total_time(self) -> None:
+        """Calculate the total time spent standing."""
+
+        self.data_manager.add_total_time(self.timer.time - self.time_when_last_total)
+        self.total = self.data_manager.get_total_time()
+        self.total_display.update(f"Total Time: {int(self.total) // 3600:02}:{(int(self.total) % 3600) // 60:02}:{int(self.total) % 60:02}")
+        self.data_manager.save_data()
+        self.time_when_last_total = self.timer.time
 
 if __name__ == "__main__":
     app = TrackerApp()
