@@ -63,7 +63,7 @@ class TrackerApp(App):
 
     def action_quit(self) -> None:
         """Quit the app."""
-        self.data_manager.add_total_time(self.timer.time)
+        self.data_manager.add_total_time(self.timer.time - self.time_when_last_total)
         self.data_manager.save_data()
         self.exit()
 
@@ -116,9 +116,12 @@ class TrackerApp(App):
 
         self.data_manager.add_total_time(self.timer.time - self.time_when_last_total)
         self.total = self.data_manager.get_total_time()
-        self.total_display.update(f"Total Time: {int(self.total) // 3600:02}:{(int(self.total) % 3600) // 60:02}:{int(self.total) % 60:02}")
+        self.total_display.update(
+            f"Total Time: {int(self.total) // 3600:02}:{(int(self.total) % 3600) // 60:02}:{int(self.total) % 60:02}"
+        )
         self.data_manager.save_data()
         self.time_when_last_total = self.timer.time
+
 
 if __name__ == "__main__":
     app = TrackerApp()
