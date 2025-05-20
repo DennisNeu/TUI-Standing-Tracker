@@ -1,4 +1,4 @@
 TO-DO:
 * Add a button to toggle
 * Fix long f-string
-* Show history of scores
+* Show history of scores --> change data struct
