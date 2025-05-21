@@ -18,11 +18,10 @@ class TrackerApp(App):
         self.data_manager = DataManager("data.json")
         score_data = self.data_manager.get_last_score()
         self.highscore = score_data["score"]
-        self.highscore_date = score_data["date"]
+        self.highscore_date = score_data["date"]  # Not used yet; is this needed?
         self.total = self.data_manager.total_time
         self.time_when_last_total = 0.0
-
-    is_running = False
+        self.timer_running = False
 
     CSS_PATH = "style.tcss"
 
@@ -69,20 +68,20 @@ class TrackerApp(App):
 
     def action_toggle_timer(self) -> None:
         """Toggle the timer."""
-        if self.is_running:
+        if self.timer_running:
             self.timer.stop()
-            self.is_running = False
+            self.timer_running = False
             self.compare_time()
             self.calculate_total_time()
         else:
             self.timer.start()
-            self.is_running = True
+            self.timer_running = True
 
     def action_reset_timer(self) -> None:
         """Reset the timer."""
-        if self.is_running:
+        if self.timer_running:
             self.timer.stop()
-            self.is_running = False
+            self.timer_running = False
         self.timer.reset()
         self.time_when_last_total = 0.01
 
