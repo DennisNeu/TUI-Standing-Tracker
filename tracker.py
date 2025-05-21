@@ -1,7 +1,6 @@
 """A simple app to track time spent standing on a sit-stand desk."""
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Static
-from textual.reactive import Reactive
 from textual.containers import Container
 
 import pyfiglet
@@ -17,7 +16,9 @@ class TrackerApp(App):
         super().__init__()
         self.data_manager = DataManager("data.json")
         score_data = self.data_manager.get_last_score()
-        self.highscore = score_data["score"]
+        
+        self.highscore = self.data_manager.get_highscore()
+        # self.highscore = score_data["score"]
         self.highscore_date = score_data["date"]  # Not used yet; is this needed?
         self.total = self.data_manager.total_time
         self.time_when_last_total = 0.0
@@ -97,9 +98,7 @@ class TrackerApp(App):
 
     def compare_time(self) -> None:
         """Compare the current time with the highscore."""
-        score = self.highscore
-
-        if self.timer.time > score:
+        if self.timer.time > self.highscore:
             self.highscore = self.timer.time
             self.data_manager.add_score(self.highscore)
             self.watch_highscore(self.highscore)
