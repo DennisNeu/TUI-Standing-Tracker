@@ -41,12 +41,6 @@ class DataManager:
         self.highscores.append({"date": str(date.today()), "score": score})
         self.save_data()
 
-    def get_last_score(self) -> dict:
-        """Get the last score from the list."""
-        if self.highscores:
-            return self.highscores[-1]
-
-    #  Test if method works and replace get_last_score
     def get_highscore(self) -> float:
         """Get the highest score from the list."""
         if self.highscores:

@@ -15,11 +15,7 @@ class TrackerApp(App):
     def __init__(self) -> None:
         super().__init__()
         self.data_manager = DataManager("data.json")
-        score_data = self.data_manager.get_last_score()
-        
         self.highscore = self.data_manager.get_highscore()
-        # self.highscore = score_data["score"]
-        self.highscore_date = score_data["date"]  # Not used yet; is this needed?
         self.total = self.data_manager.total_time
         self.time_when_last_total = 0.0
         self.timer_running = False
