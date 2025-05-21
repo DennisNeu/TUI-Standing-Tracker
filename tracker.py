@@ -22,7 +22,7 @@ class TrackerApp(App):
         self.total = self.data_manager.total_time
         self.time_when_last_total = 0.0
 
-    is_running = Reactive(False)
+    is_running = False
 
     CSS_PATH = "style.tcss"
 
@@ -84,11 +84,7 @@ class TrackerApp(App):
             self.timer.stop()
             self.is_running = False
         self.timer.reset()
-        self.time_when_last_total = 0.0
-
-    def watch_is_running(self, status: bool) -> None:
-        """Update the status display when the timer state changes."""
-        pass
+        self.time_when_last_total = 0.01
 
     def watch_time(self, time: float) -> None:
         """Called when the time attribute changes."""
