@@ -7,6 +7,7 @@ import pyfiglet
 
 from timer import Timer
 from data_manager import DataManager
+from highscore_screen import HighscoreScreen
 
 
 class TrackerApp(App):
@@ -22,10 +23,13 @@ class TrackerApp(App):
 
     CSS_PATH = "style.tcss"
 
+    SCREENS = {"highscore": HighscoreScreen}
+
     BINDINGS = [
         ("q", "quit", "Quit"),
         ("t", "toggle_timer", "Toggle Timer"),
         ("r", "reset_timer", "Reset Timer"),
+        ("h", "show_screen('highscore')", "Show Highscores"),
     ]
 
     def on_mount(self) -> None:
