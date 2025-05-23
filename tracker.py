@@ -86,6 +86,13 @@ class TrackerApp(App):
         self.timer.reset()
         self.time_when_last_total = 0.01
 
+    def action_show_screen(self, screen_name: str) -> None:
+        """Show a screen."""
+        if screen_name == "highscore":
+            self.push_screen(HighscoreScreen(self.data_manager))
+        else:
+            return
+
     def watch_time(self, time: float) -> None:
         """Called when the time attribute changes."""
         minutes, seconds = divmod(time, 60)
