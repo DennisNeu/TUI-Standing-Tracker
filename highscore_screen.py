@@ -4,6 +4,7 @@ from textual.screen import Screen
 from textual.app import ComposeResult
 from textual.widgets import Static, Header, Footer
 from textual.containers import Container
+from textual.binding import Binding
 
 
 class HighscoreScreen(Screen):
@@ -12,8 +13,9 @@ class HighscoreScreen(Screen):
     CSS_PATH = "style.tcss"
 
     BINDINGS = [
-        ("q", "app.pop_screen()", "Quit"),
-        ("h", "app.pop_screen()", "Back to main screen"),
+        Binding("h", "app.pop_screen()", "Back to main screen"),
+        Binding("t", "toggle_timer", "Toggle Timer", show=False),
+        ("r", "reset_timer", "Reset Timer"),
     ]
 
     def __init__(self, data_manager) -> None:
@@ -27,7 +29,7 @@ class HighscoreScreen(Screen):
             Header(show_clock=True, icon=""),
             Static("Highscores", id="highscore_title"),
             Static("Date: Score", id="highscore_header"),
-            Footer(),
+            Footer(show_command_palette=False),
             id="app-wrapper",
         )
 
