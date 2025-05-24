@@ -63,6 +63,7 @@ class TrackerApp(App):
 
     def action_quit(self) -> None:
         """Quit the app."""
+        self.compare_time()
         self.data_manager.add_total_time(self.timer.time - self.time_when_last_total)
         self.data_manager.save_data()
         self.exit()
@@ -103,6 +104,8 @@ class TrackerApp(App):
         """Called when the highscore attribute changes."""
         self.score_display.update(f"Highscore: {int(self.highscore) // 3600:02}:{(int(self.highscore) % 3600) // 60:02}:{int(self.highscore) % 60:02}")
 
+
+    # TODO: function does more than just one thing, should be split up
     def compare_time(self) -> None:
         """Compare the current time with the highscore."""
         if self.timer.time > self.highscore:
