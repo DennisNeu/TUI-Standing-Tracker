@@ -15,7 +15,7 @@ class HighscoreScreen(Screen):
     BINDINGS = [
         Binding("h", "app.pop_screen()", "Back to main screen"),
         Binding("t", "toggle_timer", "Toggle Timer", show=False),
-        ("r", "reset_timer", "Reset Timer"),
+        Binding("r", "reset_timer", "Reset Timer", show=False),
     ]
 
     def __init__(self, data_manager) -> None:
