@@ -29,7 +29,7 @@ class TrackerApp(App):
         ("q", "quit", "Quit"),
         ("t", "toggle_timer", "Toggle Timer"),
         ("r", "reset_timer", "Reset Timer"),
-        ("h", "show_screen('highscore')", "Show Highscores"),
+        ("h", "show_screen('highscore')", "Highscore"),
     ]
 
     def on_mount(self) -> None:
@@ -93,7 +93,7 @@ class TrackerApp(App):
             self.push_screen(HighscoreScreen(self.data_manager))
         else:
             return
-
+        
     def watch_time(self, time: float) -> None:
         """Called when the time attribute changes."""
         minutes, seconds = divmod(time, 60)
