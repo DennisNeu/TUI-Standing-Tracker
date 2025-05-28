@@ -3,7 +3,7 @@ import json
 from datetime import date
 
 
-class DataManager:
+class StatsManager:
     """A class that manages the data for the application."""
 
     def __init__(self, filename: str):

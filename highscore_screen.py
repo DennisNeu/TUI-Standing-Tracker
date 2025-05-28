@@ -18,10 +18,10 @@ class HighscoreScreen(Screen):
         Binding("r", "reset_timer", "Reset Timer", show=False),
     ]
 
-    def __init__(self, data_manager) -> None:
+    def __init__(self, stats_manager) -> None:
         """Initialize the HighscoreScreen with a DataManager instance."""
         super().__init__()
-        self.data_manager = data_manager
+        self.stats_manager = stats_manager
         # self.highscores = self.data_manager.highscores # Not sure if this is correct
 
     def compose(self) -> ComposeResult:
