@@ -4,7 +4,7 @@ from datetime import date
 
 
 class StatsManager:
-    """A class that manages the data for the application."""
+    """A class that manages the data for highscore and total standing time."""
 
     def __init__(self, filename: str):
         """Initialize the DataManager with a filename."""
@@ -55,3 +55,25 @@ class StatsManager:
         """Add time to the total time."""
         self.total_time += time
         self.save_data()
+
+class SessionManager:
+    """A class that manages the data for each standing session."""
+
+    def __init__(self, filename: str):
+        self.filename = filename
+        self.sessions = []
+        self.load_data()
+    
+    def load_data(self):
+        """Load session data from a JSON file."""
+        if os.path.exists(self.filename):
+            with open(self.filename, 'r') as file:
+                self.sessions = json.load(file)
+        else:
+            self.sessions = []
+            self.save_data()
+
+    def save_data(self):
+        """Save session data to a JSON file."""
+        with open(self.filename, 'w') as file:
+            json.dump(self.sessions, file, indent=4)

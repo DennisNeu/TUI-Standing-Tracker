@@ -6,7 +6,7 @@ from textual.containers import Container
 import pyfiglet
 
 from timer import Timer
-from data_manager import StatsManager
+from data_manager import StatsManager, SessionManager
 from highscore_screen import HighscoreScreen
 
 
@@ -15,7 +15,8 @@ class TrackerApp(App):
 
     def __init__(self) -> None:
         super().__init__()
-        self.data_manager = StatsManager("data.json")
+        self.data_manager = StatsManager("stats.json")
+        self.session_manager = SessionManager("sessions.json")
         self.highscore = self.data_manager.get_highscore()
         self.total = self.data_manager.total_time
         self.time_when_last_total = 0.0
