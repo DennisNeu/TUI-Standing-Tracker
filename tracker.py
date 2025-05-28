@@ -66,7 +66,9 @@ class TrackerApp(App):
         """Quit the app."""
         self.compare_time()
         self.data_manager.add_total_time(self.timer.time - self.time_when_last_total)
-        self.data_manager.save_data()
+        #  self.data_manager.save_data() reckon this save call is not necessary
+        if self.timer.time > 0:
+            self.session_manager.add_session(self.timer.time)
         self.exit()
 
     def action_toggle_timer(self) -> None:

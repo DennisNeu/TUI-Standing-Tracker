@@ -77,3 +77,8 @@ class SessionManager:
         """Save session data to a JSON file."""
         with open(self.filename, 'w') as file:
             json.dump(self.sessions, file, indent=4)
+
+    def add_session(self, session_time):
+        """Add a session to the list and save it."""
+        self.sessions.append({"date": str(date.today()), "time": session_time})
+        self.save_data()
