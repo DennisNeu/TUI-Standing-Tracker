@@ -7,7 +7,7 @@ from textual.containers import Container
 from textual.binding import Binding
 
 
-class HighscoreScreen(Screen):
+class DataScreen(Screen):
     """A screen to display the history of scores."""
 
     CSS_PATH = "style.tcss"

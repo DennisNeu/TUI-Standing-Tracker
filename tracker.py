@@ -7,7 +7,7 @@ import pyfiglet
 
 from timer import Timer
 from data_manager import StatsManager, SessionManager
-from highscore_screen import HighscoreScreen
+from data_screen import DataScreen
 
 
 class TrackerApp(App):
@@ -24,7 +24,7 @@ class TrackerApp(App):
 
     CSS_PATH = "style.tcss"
 
-    SCREENS = {"highscore": HighscoreScreen}
+    SCREENS = {"data": DataScreen}
 
     BINDINGS = [
         ("q", "quit", "Quit"),
@@ -93,7 +93,7 @@ class TrackerApp(App):
     def action_show_screen(self, screen_name: str) -> None:
         """Show a screen."""
         if screen_name == "highscore":
-            self.push_screen(HighscoreScreen(self.data_manager))
+            self.push_screen(DataScreen(self.data_manager))
         else:
             return
         
