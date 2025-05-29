@@ -51,6 +51,11 @@ class TrackerApp(App):
                 f"Total Time: {int(self.total) // 3600:02}:{(int(self.data_manager.total_time) % 3600) // 60:02}:{int(self.data_manager.total_time) % 60:02}",
                 id="total",
             )
+        
+        self.last_session = Static(
+                f"Last Session: {int(self.session_manager.get_last_session()) // 3600:02}:{(int(self.session_manager.get_last_session()) % 3600) // 60:02}:{int(self.session_manager.get_last_session()) % 60:02}",
+                id="last-session",
+            )
 
         yield Container(
             Header(show_clock=True, icon=""),
@@ -58,6 +63,7 @@ class TrackerApp(App):
             self.timer,
             self.score_display,
             self.total_display,
+            self.last_session,
             Footer(),
             id="app-wrapper"
         )

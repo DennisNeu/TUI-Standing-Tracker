@@ -38,8 +38,18 @@ Screen {
     background: $panel-darken-1;
 }
 
-
 #total {
+    content-align: center middle;
+    text-align: center;
+    padding: 1;
+    margin: 2 2;
+    text-style: bold;
+    border: round $primary;
+    height: auto;
+    background: $panel-darken-1;
+}
+
+#last-session {
     content-align: center middle;
     text-align: center;
     padding: 1;

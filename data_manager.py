@@ -89,3 +89,9 @@ class SessionManager:
         for s in self.sessions:
             totals[s["date"]] += s["time"]
         return dict(totals)
+    
+    def get_last_session(self):
+        """Get the last session time."""
+        if self.sessions:
+            return self.sessions[-1]["time"]
+        return 0.0
