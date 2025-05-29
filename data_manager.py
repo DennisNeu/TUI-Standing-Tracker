@@ -1,7 +1,7 @@
 import os
 import json
 from datetime import date
-
+from collections import defaultdict
 
 class StatsManager:
     """A class that manages the data for highscore and total standing time."""
@@ -82,3 +82,10 @@ class SessionManager:
         """Add a session to the list and save it."""
         self.sessions.append({"date": str(date.today()), "time": round(session_time, 2)})
         self.save_data()
+
+    def aggregate_sessions_by_day(self):
+        """Aggregate session times by day."""
+        totals = defaultdict(float)
+        for s in self.sessions:
+            totals[s["date"]] += s["time"]
+        return dict(totals)
