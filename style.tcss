@@ -14,7 +14,7 @@ Screen {
 #app-wrapper {
     width: 80;
     border: ascii $primary;
-    margin: 0 10;
+    margin: 0 0;
 }
 
 #timer {
