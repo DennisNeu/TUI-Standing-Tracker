@@ -32,11 +32,3 @@ class DataScreen(Screen):
             Footer(show_command_palette=False),
             id="app-wrapper",
         )
-
-
-    # This is probably bogus too
-    def display(self):
-        """Display the highscore screen."""
-        print("Highscores:")
-          #for entry in self.highscores:
-          #  print(f"Date: {entry['date']}, Score: {entry['score']}")

@@ -38,7 +38,7 @@ class StatsManager:
     def add_score(self, score: float):
         """Add a score to the list and save it. Since append adds to the end
            of the list, the last score is the highest"""
-        self.highscores.append({"date": str(date.today()), "score": score})
+        self.highscores.append({"date": str(date.today()), "score": round(score, 2)})
         self.save_data()
 
     def get_highscore(self) -> float:
@@ -53,7 +53,7 @@ class StatsManager:
     
     def add_total_time(self, time: float):
         """Add time to the total time."""
-        self.total_time += time
+        self.total_time = round(self.total_time + time, 2)
         self.save_data()
 
 class SessionManager:
@@ -80,5 +80,5 @@ class SessionManager:
 
     def add_session(self, session_time):
         """Add a session to the list and save it."""
-        self.sessions.append({"date": str(date.today()), "time": session_time})
+        self.sessions.append({"date": str(date.today()), "time": round(session_time, 2)})
         self.save_data()
