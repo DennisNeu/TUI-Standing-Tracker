@@ -5,8 +5,11 @@ from datetime import datetime
 from textual.screen import Screen
 from textual.app import ComposeResult
 from textual.widgets import Static, Header, Footer
-from textual.containers import Container, VerticalScroll
+from textual.containers import Container, VerticalScroll, Horizontal
 from textual.binding import Binding
+
+import pyfiglet
+
 
 
 class DataScreen(Screen):
@@ -27,8 +30,11 @@ class DataScreen(Screen):
         self.highscores = self.stats_manager.highscores
 
     def compose(self) -> ComposeResult:
+        ascii_title = pyfiglet.figlet_format("Stand Up!", font="slant")
+
         yield Container(
             Header(show_clock=True, icon=""),
+            Static(ascii_title, id="title"),
             VerticalScroll(id="highscore-list", classes="highscore-list"),
             Footer(show_command_palette=False),
             id="app-wrapper",
@@ -37,11 +43,18 @@ class DataScreen(Screen):
     def on_mount(self) -> None:
         """Event handler called when the screen is mounted."""
         highscores = list(reversed(self.highscores))  # Reverse to show the latest scores first
+        highscore_list = self.query_one("#highscore-list")
+        
         for score in highscores:
             minutes, seconds = divmod(score['score'], 60)
             formatted_date = datetime.strptime(score['date'], "%Y-%m-%d").strftime("%d.%m.%Y")
-            score_display = Static(
-                f"{formatted_date}: {int(minutes):02d} minutes, {seconds:05.2f} seconds",
-                classes="highscore-item"
+            
+            # Wrap each score in its own container with proper spacing
+            score_container = Horizontal(
+                Static(
+                    f"{formatted_date}: {int(minutes):02d} minutes, {seconds:05.2f} seconds",
+                    classes="highscore-item"
+                ),
+                classes="highscore-container"
             )
-            self.query_one("#highscore-list").mount(score_display)
+            highscore_list.mount(score_container)

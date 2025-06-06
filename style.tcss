@@ -59,3 +59,28 @@ Screen {
     height: auto;
     background: $panel-darken-1;
 }
+
+.highscore-list {
+    content-align: center middle;
+    text-align: center;
+    padding: 1;
+    margin: 2 2;
+    text-style: bold;
+    height: auto;
+}
+
+.highscore-item {
+    text-align: center;
+    padding: 1;
+    margin: 0;  /* Ensure no extra margin inside the container */
+    text-style: bold;
+    height: auto;
+    background: $panel-darken-2;
+}
+
+.highscore-container {
+    margin: 2 0;  /* Add vertical spacing between containers */
+    padding: 1;   /* Add padding inside the container */
+    border: round $primary;  /* Add a border around the container */
+    background: $panel-darken-1;  /* Adjust background color */
+}
