@@ -3,7 +3,7 @@
 from textual.screen import Screen
 from textual.app import ComposeResult
 from textual.widgets import Static, Header, Footer
-from textual.containers import Container
+from textual.containers import Container, VerticalScroll
 from textual.binding import Binding
 
 
@@ -22,13 +22,20 @@ class DataScreen(Screen):
         """Initialize the HighscoreScreen with a DataManager instance."""
         super().__init__()
         self.stats_manager = stats_manager
-        # self.highscores = self.data_manager.highscores # Not sure if this is correct
+        self.highscores = self.stats_manager.highscores
 
     def compose(self) -> ComposeResult:
         yield Container(
             Header(show_clock=True, icon=""),
-            Static("Highscores", id="highscore_title"),
-            Static("Date: Score", id="highscore_header"),
+            VerticalScroll(id="highscore-list", classes="highscore-list"),
             Footer(show_command_palette=False),
             id="app-wrapper",
         )
+
+    def on_mount(self) -> None:
+        for score in self.highscores:
+            score_display = Static(
+                f"{score['date']}: {score['score']:.2f} seconds",
+                classes="highscore-item"
+            )
+            self.query_one("#highscore-list").mount(score_display)
