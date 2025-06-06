@@ -1,5 +1,7 @@
 """A screen to display the history of scores."""
 
+from datetime import datetime
+
 from textual.screen import Screen
 from textual.app import ComposeResult
 from textual.widgets import Static, Header, Footer
@@ -33,9 +35,13 @@ class DataScreen(Screen):
         )
 
     def on_mount(self) -> None:
-        for score in self.highscores:
+        """Event handler called when the screen is mounted."""
+        highscores = list(reversed(self.highscores))  # Reverse to show the latest scores first
+        for score in highscores:
+            minutes, seconds = divmod(score['score'], 60)
+            formatted_date = datetime.strptime(score['date'], "%Y-%m-%d").strftime("%d.%m.%Y")
             score_display = Static(
-                f"{score['date']}: {score['score']:.2f} seconds",
+                f"{formatted_date}: {int(minutes):02d} minutes, {seconds:05.2f} seconds",
                 classes="highscore-item"
             )
             self.query_one("#highscore-list").mount(score_display)
