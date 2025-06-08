@@ -32,10 +32,10 @@ class DataScreen(Screen):
     def compose(self) -> ComposeResult:
         ascii_title = pyfiglet.figlet_format("Stand Up!", font="slant")
 
-        yield Container(
+        yield VerticalScroll(
             Header(show_clock=True, icon=""),
             Static(ascii_title, id="title"),
-            VerticalScroll(id="highscore-list", classes="highscore-list"),
+            Container(id="highscore-list", classes="highscore-list"),
             Footer(show_command_palette=False),
             id="app-wrapper",
         )
